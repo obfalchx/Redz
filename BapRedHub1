@@ -3675,34 +3675,62 @@ spawn(function()
 end)
 
 local module = {
-    NextAttack = 0,
-    Distance = 55,
-    attackMobs = true,
-    attackPlayers = true
+  NextAttack = 10,
+  Distance = 60,
+  attackMobs = true,
+  attackPlayers = true
 }
 
-local Player = game:GetService("Players")
-
 function module:GetBladeHits()
-    local BladeHits = {}
-    for _, Enemy in game:GetService("Workspace").Enemies:GetChildren() do
-        table.insert(BladeHits, Enemy.HumanoidRootPart)
+  local BladeHits = {}
+  local Client = game.Players.LocalPlayer
+  local Characters = game:GetService("Workspace").Characters:GetChildren()
+  
+  for i, v in pairs(Characters) do
+    local Human = v:FindFirstChildOfClass("Humanoid")
+    if v.Name ~= Client.Name and Human and Human.RootPart and Human.Health > 0 then
+      if Client:DistanceFromCharacter(Human.RootPart.Position) < self.Distance then
+        table.insert(BladeHits, Human.RootPart)
+      end
     end
-    return BladeHits
+  end
+  
+  local Enemies = game:GetService("Workspace").Enemies:GetChildren()
+  for i, v in pairs(Enemies) do
+    local Human = v:FindFirstChildOfClass("Humanoid")
+    if Human and Human.RootPart and Human.Health > 0 then
+      if Client:DistanceFromCharacter(Human.RootPart.Position) < self.Distance then
+        table.insert(BladeHits, Human.RootPart)
+      end
+    end
+  end
+  
+  return BladeHits
 end
 
 function module:attack()
-    local BladeHits = self:GetBladeHits()
-    game:GetService("ReplicatedStorage").Modules.Net:WaitForChild("RE/RegisterAttack"):FireServer(0)
-    for _, Hit in BladeHits do
-        game:GetService("ReplicatedStorage").Modules.Net:WaitForChild("RE/RegisterHit"):FireServer(Hit)
-    end
+  local BladeHits = self:GetBladeHits()
+  
+  if #BladeHits == 0 then
+    return
+  end
+  
+  game:GetService("ReplicatedStorage").Modules.Net:WaitForChild("RE/RegisterAttack"):FireServer(0)
+  
+  for _, Hit in pairs(BladeHits) do
+    game:GetService("ReplicatedStorage").Modules.Net:WaitForChild("RE/RegisterHit"):FireServer(Hit)
+  end
 end
 
-spawn(function()
-    while wait() do
-        module:attack()
-    end
+_G.AA = true
+
+task.spawn(function()
+  while wait() do
+    repeat
+      task.wait()
+      module:attack()
+    until not _G.AA
+  end
 end)
 
 Mn:Seperator("Tự Động Cày")
@@ -4197,7 +4225,7 @@ BoneCheck = Mn:Label("Xương Của Bạn: N/A")
    local BonePos = CFrame.new(-9506.234375, 172.130615234375, 6117.0771484375)
     spawn(function()
         while wait() do 
-            if Mode == "NoQuest" and _G.Bone and World3 then
+            if Mode == "Không Nhận" and _G.Bone and World3 then
                 pcall(function()
                     if game:GetService("Workspace").Enemies:FindFirstChild("Reborn Skeleton") or game:GetService("Workspace").Enemies:FindFirstChild("Living Zombie") or game:GetService("Workspace").Enemies:FindFirstChild("Demonic Soul") or game:GetService("Workspace").Enemies:FindFirstChild("Posessed Mummy") then
                         for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
