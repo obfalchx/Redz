@@ -2173,7 +2173,7 @@ function CheckQuest()
             NameMon = "kissed"
             CFrameQuest = CFrame.new(-16540, 56, 1051)
             CFrameMon = CFrame.new(-16345, 80, 1004)
-        elseif MyLevel == 2525 or MyLevel <= 2550 then
+        elseif MyLevel == 2525 or MyLevel <= 2549 then
             Mon = "Isle Champion"
             LevelQuest = 2
             NameQuest = "TikiQuest2"
@@ -2188,10 +2188,10 @@ function CheckQuest()
             CFrameQuest = CFrame.new(-16665, 105, 1580)
             CFrameMon = CFrame.new(-16542.4824, 146.675156, 1529.61401, -0.999948919, 1.07298108e-08, 0.0101067368, 1.0128324e-08, 1, -5.95646625e-08, -0.0101067368, -5.94592571e-08, -0.999948919)
         elseif MyLevel == 2575 or MyLevel <= 2600 then
-            Mon = "Skull Stayer"
+            Mon = "Skull Slayer"
             LevelQuest = 2
             NameQuest = "TikiQuest3"
-            NameMon = "Skull Stayer"
+            NameMon = "Skull Slayer"
             CFrameQuest = CFrame.new(-16665, 105, 1580)
             CFrameMon = CFrame.new(-16849.9336, 147.005066, 1640.88354, 0.470148534, 0.491874039, -0.732816696, 1.72165002e-08, 0.83030504, 0.55730921, 0.882587314, -0.262018114, 0.390366673)
         end
