@@ -6388,9 +6388,9 @@ spawn(function()
         while wait() do
             if Dragon_Scale and World3 then
                 pcall(function()
-                    if game:GetService("Workspace").Enemies:FindFirstChild("Dragon Crew Archer") then
+                    if game:GetService("Workspace").Enemies:FindFirstChild("Dragon Crew Archer") or game:GetService("Workspace").Enemies:FindFirstChild("Dragon Crew Warrior") then
                         for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                            if v.Name == "Dragon Crew Archer" then
+                            if v.Name == "Dragon Crew Archer" or v.Name == "Dragon Crew Warrior" then
                                 if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
                                     repeat task.wait()
                                         AutoHaki()
@@ -6418,8 +6418,12 @@ spawn(function()
 				end
 				    UnEquipWeapon(_G.SelectWeapon)
                     topos(CFrame.new(6752, 565, 315))
+                        if game:GetService("ReplicatedStorage"):FindFirstChild("Dragon Crew Archer") or game:GetService("ReplicatedStorage"):FindFirstChild("Dragon Crew Warrior") then
                         if game:GetService("ReplicatedStorage"):FindFirstChild("Dragon Crew Archer") then
                             topos(game:GetService("ReplicatedStorage"):FindFirstChild("Dragon Crew Archer").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                         elseif game:GetService("ReplicatedStorage"):FindFirstChild("Dragon Crew Warrior") then
+                            topos(game:GetService("ReplicatedStorage"):FindFirstChild("Dragon Crew Warrior").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                         end
                         else
                             if _G.StardHop then
                                 Hop()
